@@ -4,6 +4,7 @@ import './globals.scss';
 import { ThemeProvider } from '@/ui-kit/src/components/ThemeProvider';
 import ClientLayout from './ClientLayout';
 import TrackingSdk from './TrackingSdk';
+import Script from 'next/script';
 
 const LocalFont = localFont({
     src: [
@@ -56,9 +57,18 @@ const LocalFont = localFont({
     variable: '--font-pretendard',
 });
 
+const Paperlogy = localFont({
+    src: [
+        { path: '../assets/fonts/Paperlogy/Paperlogy-6SemiBold.woff2', weight: '600', style: 'normal' },
+        { path: '../assets/fonts/Paperlogy/Paperlogy-7Bold.woff2', weight: '700', style: 'normal' },
+        { path: '../assets/fonts/Paperlogy/Paperlogy-8ExtraBold.woff2', weight: '800', style: 'normal' },
+    ],
+    variable: '--font-paperlogy',
+});
+
 export const metadata: Metadata = {
-    title: '보일러플레이트',
-    description: '보일러플레이트',
+    title: '국민중고차비교견적',
+    description: '내 차 팔 때 제값 받는 방법! 전국 딜러 경쟁 입찰로 최고가 견적을 무료로 확인하세요.',
     keywords: [],
     icons: {
         icon: '/favicon.ico', // public 폴더에 있는 favicon.ico 파일을 사용
@@ -76,15 +86,20 @@ export default function RootLayout({
 
     return (
         <html lang="kr" suppressHydrationWarning id="root">
-            <body suppressHydrationWarning className={LocalFont.className}>
+            <head>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xpressengine/XEIcon/xeicon.min.css" />
+                <Script id="mleverage-config">{`window.MLeverageConfig = {apiBase: '${process.env.NEXT_PUBLIC_API_URL ?? ''}'};`}</Script>
+                <Script src="https://cdn.mleverage.co.kr/mleverage.client.js" defer />
+            </head>
+            <body suppressHydrationWarning className={`${LocalFont.className} ${LocalFont.variable} ${Paperlogy.variable}`}>
                 {trackingSiteId && trackingApiBaseUrl && (
                     <TrackingSdk siteId={trackingSiteId} apiBaseUrl={trackingApiBaseUrl} environment={environment} />
                 )}
                 <ThemeProvider
                     theme={{
-                        '--primary-color': '#417EF0',
-                        '--text-color': '#111',
-                        '--focus-color': '#417EF0',
+                        '--primary-color': '#FFC800',
+                        '--text-color': '#1A1A1A',
+                        '--focus-color': '#FFC800',
                     }}
                 >
                     <ClientLayout>{children}</ClientLayout>

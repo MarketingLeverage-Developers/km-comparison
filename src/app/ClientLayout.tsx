@@ -1,6 +1,11 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Page from '@/ui-kit/src/components/layouts/Page/Page';
+import Header from './(components)/common/header';
+import Footer from './(components)/common/footer';
+import Floating from './(components)/common/floating';
+import FixedBanner from './(components)/common/FixedBanner';
+import { FormProvider } from './(components)/formProvider';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -9,12 +14,20 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return (
         <>
             {!isCompletePage && (
-                <>
-                    <Page.Header>헤더</Page.Header>
-                </>
+                <Page.Header>
+                    <Header />
+                </Page.Header>
             )}
             {children}
-            {!isCompletePage && <>푸터</>}
+            {!isCompletePage && (
+                <>
+                    <Footer />
+                    <Floating />
+                    <FormProvider inquireLocation="하단-고정">
+                        <FixedBanner />
+                    </FormProvider>
+                </>
+            )}
         </>
     );
 }

@@ -1,0 +1,39 @@
+.divider {
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.blink {
+    animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+// 폼 헤더 우측 상담원 이미지 (시안: 351×497 영역, -4.29deg 회전, 헤더 밖은 잘림)
+.woman {
+    position: absolute;
+    left: clamp(98px, calc(131 / 1600 * 100vw), 131px);
+    top: clamp(-35px, calc(-47 / 1600 * 100vw), -26px);
+    width: clamp(237px, calc(317 / 1600 * 100vw), 317px);
+    transform: rotate(-4.29deg);
+    pointer-events: none;
+}
+
+.womanMo {
+    position: absolute;
+    right: -70px;
+    top: -18px;
+    width: 230px;
+    transform: rotate(-4.29deg);
+    pointer-events: none;
+}

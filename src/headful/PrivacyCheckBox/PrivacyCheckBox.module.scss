@@ -1,0 +1,84 @@
+.PrivacyText {
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #111111;
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+.CheckboxWrapper {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    cursor: pointer !important;
+
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    .CustomCheckbox {
+        box-sizing: border-box;
+        width: var(--box-size, 22px);
+        height: var(--box-size, 22px);
+        border-radius: 2px;
+        border: 1px solid #777777;
+        background-color: #fff;
+        position: relative;
+        margin-right: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+        i {
+            font-size: 15px;
+            color: #777777;
+            transition: opacity 0.2s;
+        }
+
+        // fixed 상태일 때 적용될 스타일 (기능 비활성화 암시하는 커서 스타일 없음)
+        &.FixedState {
+            border-radius: 2px;
+            background-color: #f2f2f2;
+            border-color: #dddddd;
+            margin-right: 8px;
+            i {
+                color: #bbbbbb;
+            }
+        }
+    }
+
+    input:checked + .CustomCheckbox {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        i {
+            color: #fff;
+        }
+
+        // checked이면서 fixed 상태일 때 덮어 쓸 스타일
+        &.FixedState {
+            border-radius: 6px;
+            background-color: #f2f2f2;
+            border-color: #f2f2f2;
+            i {
+                color: #202b3b;
+            }
+        }
+    }
+}
+
+.Trigger {
+    cursor: pointer !important;
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 0%;
+    text-decoration-skip-ink: auto;
+}
