@@ -19,12 +19,12 @@
     }
 }
 
-// 폼 헤더 우측 상담원 이미지 (시안: 351×497 영역, -4.29deg 회전, 헤더 밖은 잘림)
+// 폼 헤더 우측 상담원 이미지 (시안: 392px 폼 기준 left 131 / top -47 / 317px, -4.29deg 회전, 헤더 밖은 잘림)
 .woman {
     position: absolute;
-    left: clamp(98px, calc(131 / 1600 * 100vw), 131px);
-    top: clamp(-35px, calc(-47 / 1600 * 100vw), -26px);
-    width: clamp(237px, calc(317 / 1600 * 100vw), 317px);
+    left: 131px;
+    top: -47px;
+    width: 317px;
     transform: rotate(-4.29deg);
     pointer-events: none;
 }

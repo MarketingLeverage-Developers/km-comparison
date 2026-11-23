@@ -171,12 +171,19 @@ const MainForm = () => {
                 <Box
                     backgroundColor="#fff"
                     radius={20}
-                    width={400}
+                    width={'392px'}
                     boxShadow="0px 24px 48px 0px rgba(0,0,0,0.28)"
                     style={{ overflow: 'hidden' }}
                 >
-                    <Box backgroundColor={PRIMARY} height={110} style={{ position: 'relative', overflow: 'hidden' }}>
-                        <Flex direction="column" justify="center" gap={10} height="100%" padding={{ x: 30 }}>
+                    <Box backgroundColor={PRIMARY} height={'112px'} style={{ position: 'relative', overflow: 'hidden' }}>
+                        <Flex
+                            direction="column"
+                            justify="center"
+                            gap={10}
+                            height="100%"
+                            padding={{ x: 30 }}
+                            style={{ position: 'relative', zIndex: 1 }}
+                        >
                             <Text size={26} weight={700} color={DARK} style={{ ...paperlogy, ...ls(), lineHeight: 1 }}>
                                 내 차 팔기 무료 상담
                             </Text>
@@ -203,7 +210,7 @@ const MainForm = () => {
             <Item mobile>
                 <Box backgroundColor="#fff" radius={16} width="100%" style={{ overflow: 'hidden' }}>
                     <Box backgroundColor={PRIMARY} height="88px" style={{ position: 'relative', overflow: 'hidden' }}>
-                        <Flex direction="column" justify="center" gap={8} height="100%" s style={{ padding: '0 20px' }}>
+                        <Flex direction="column" justify="center" gap={8} height="100%" s style={{ padding: '0 20px', position: 'relative', zIndex: 1 }}>
                             <Text size={20} s weight={700} color={DARK} style={{ ...paperlogy, ...ls(), lineHeight: 1 }}>
                                 내 차 팔기 무료 상담
                             </Text>

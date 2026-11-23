@@ -1,9 +1,9 @@
 'use client';
-import { useEffect, useState } from 'react';
 import Text from '@/ui-kit/src/components/contents/Text/Text';
 import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
 import Item from '@/ui-kit/src/components/layouts/Item/Item';
 import MaxWidth from '@/ui-kit/src/components/layouts/MaxWidth/MaxWidth';
+import SwiperD from '@/headful/barSwiper/D/swiperD';
 import SectionTitle from '@/app/(components)/common/sectionTitle';
 import { DARK, ls } from '@/configs/site';
 import styles from './section.module.scss';
@@ -23,8 +23,11 @@ const CARS = [
     '투싼 2019년식',
 ];
 
-const Row = ({ car, mobile, last }: { car: string; mobile: boolean; last: boolean }) => (
-    <div className={styles.row} style={last ? { borderBottom: 'none' } : undefined}>
+const LEFT = CARS.slice(0, 6);
+const RIGHT = CARS.slice(6);
+
+const Row = ({ car, mobile }: { car: string; mobile: boolean }) => (
+    <div className={styles.row}>
         <span className={styles.badge}>
             <Text size={mobile ? 12 : 16} s={mobile} weight={700} color={DARK} style={{ ...ls(), lineHeight: 1 }}>
                 New
@@ -35,7 +38,15 @@ const Row = ({ car, mobile, last }: { car: string; mobile: boolean; last: boolea
             s={mobile}
             weight={600}
             color={DARK}
-            style={{ ...ls(), lineHeight: 1, flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+            style={{
+                ...ls(),
+                lineHeight: 1,
+                flex: 1,
+                minWidth: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+            }}
         >
             {car} 상담
         </Text>
@@ -47,17 +58,8 @@ const Row = ({ car, mobile, last }: { car: string; mobile: boolean; last: boolea
     </div>
 );
 
-/** S7 실시간 상담 접수 현황 — 3초마다 목록이 한 칸씩 갱신 */
+/** S7 실시간 상담 접수 현황 — headful barSwiper/D 세로 티커 (열마다 4줄 노출) */
 const Section7 = () => {
-    const [offset, setOffset] = useState(0);
-
-    useEffect(() => {
-        const timer = setInterval(() => setOffset((o) => (o + 1) % CARS.length), 3000);
-        return () => clearInterval(timer);
-    }, []);
-
-    const pick = (n: number) => Array.from({ length: n }, (_, i) => CARS[(offset + i) % CARS.length]);
-
     return (
         <section style={{ background: '#F5F5F3' }}>
             <Item desktop>
@@ -65,16 +67,15 @@ const Section7 = () => {
                     <Flex direction="column" gap={40} align="center" width="100%">
                         <SectionTitle plain="실시간" accent="상담 접수 현황" />
                         <div className={styles.panel}>
-                            {[0, 1].map((col) => {
-                                const list = pick(8).slice(col * 4, col * 4 + 4);
-                                return (
-                                    <div key={col} className={col === 0 ? styles.colLeft : styles.colRight}>
-                                        {list.map((car, i) => (
-                                            <Row key={`${col}-${i}`} car={car} mobile={false} last={i === 3} />
+                            {[LEFT, RIGHT].map((list, col) => (
+                                <div key={col} className={col === 0 ? styles.colLeft : styles.colRight}>
+                                    <SwiperD height="calc(var(--box-70) * 4)" spaceBetween={0} delay={1500}>
+                                        {list.map((car) => (
+                                            <Row key={car} car={car} mobile={false} />
                                         ))}
-                                    </div>
-                                );
-                            })}
+                                    </SwiperD>
+                                </div>
+                            ))}
                         </div>
                     </Flex>
                 </MaxWidth>
@@ -84,9 +85,11 @@ const Section7 = () => {
                     <SectionTitle plain="실시간" accent="상담 접수 현황" />
                     <div className={styles.panel}>
                         <div className={styles.colLeft}>
-                            {pick(5).map((car, i) => (
-                                <Row key={i} car={car} mobile last={i === 4} />
-                            ))}
+                            <SwiperD height="270px" spaceBetween={0} delay={1500}>
+                                {CARS.map((car) => (
+                                    <Row key={car} car={car} mobile />
+                                ))}
+                            </SwiperD>
                         </div>
                     </div>
                 </Flex>

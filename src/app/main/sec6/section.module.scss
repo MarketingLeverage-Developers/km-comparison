@@ -68,7 +68,7 @@
 
 .infoCard {
     position: relative;
-    height: var(--box-240);
+    height: max(var(--box-240), 210px);
     box-sizing: border-box;
     padding: var(--space-35);
     background: #fff;

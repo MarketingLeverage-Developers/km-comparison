@@ -20,7 +20,7 @@ export const mleverageClient = createMLeverageClient({
 });
 
 // ⭐ 여기서 필요한 것들만 꺼내서 export
-export const { useInquiryForm, useHomepageContentList } = mleverageClient;
+export const { useInquiryForm, useHomepageContentList, getHomepageContentDetail } = mleverageClient;
 
 // 유틸은 여기서 한 번 더 export 해두면,
 // 컴포넌트에서는 항상 '@/libs/mleverageClient'만 보면 됨

@@ -35,7 +35,7 @@ const AdNotice = ({ mobile }: { mobile?: boolean }) => (
 
 const Footer = () => {
     return (
-        <FooterAp imgPc="" imgMo="" bgColor="#272727" maxWidth={1320} bottomPaddingPc={85} bottomPaddingMo={80}>
+        <FooterAp imgPc="" imgMo="" bgColor="#272727" maxWidth={1320} bottomPaddingPc={85} bottomPaddingMo={120}>
             <Item desktop>
                 <Flex direction="column" gap={35} style={{ padding: 'var(--space-20) 0' }}>
                     <Flex direction="column" gap={15}>

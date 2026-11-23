@@ -1,0 +1,18 @@
+.SwiperContainer {
+    width: 100%;
+    height: var(--box-450) !important;
+    min-height: 345px;
+    touch-action: pan-y;
+    @media (max-width: 768px) {
+        width: 290px !important;
+        height: 369px !important;
+    }
+}
+.SwiperCustom {
+    width: 100%;
+    touch-action: pan-y;
+}
+.swiperSlide {
+    width: auto;
+    height: auto !important;
+}

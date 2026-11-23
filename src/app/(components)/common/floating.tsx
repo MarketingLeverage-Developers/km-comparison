@@ -29,7 +29,7 @@ const Floating = () => {
     return (
         <ModalA>
             <Item desktop>
-                <Fixed right={58} bottom={130}>
+                <Fixed right={44} bottom={110}>
                     <Flex direction="column" gap={15}>
                         <a href={`tel:${PHONE_TEL}`} aria-label="전화 상담" style={{ ...circle, background: PRIMARY }}>
                             <Text size={24} color={DARK}>
