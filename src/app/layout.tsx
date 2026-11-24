@@ -83,15 +83,18 @@ export default function RootLayout({
     const trackingSiteId = process.env.NEXT_PUBLIC_TRACKING_SITE_ID;
     const trackingApiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/macs\/api\/?$/, '/maus/api');
     const environment = process.env.NEXT_PUBLIC_ENV === 'prod' ? 'production' : 'staging';
-
+    const src = process.env.NEXT_PUBLIC_API_URL;
     return (
         <html lang="kr" suppressHydrationWarning id="root">
             <head>
+                <Script>{`window.MLeverageConfig = {apiBase: '${src}'};`}</Script>
+                <Script src={`https://cdn.mleverage.co.kr/mleverage.client.js`} defer></Script>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xpressengine/XEIcon/xeicon.min.css" />
-                <Script id="mleverage-config">{`window.MLeverageConfig = {apiBase: '${process.env.NEXT_PUBLIC_API_URL ?? ''}'};`}</Script>
-                <Script src="https://cdn.mleverage.co.kr/mleverage.client.js" defer />
             </head>
-            <body suppressHydrationWarning className={`${LocalFont.className} ${LocalFont.variable} ${Paperlogy.variable}`}>
+            <body
+                suppressHydrationWarning
+                className={`${LocalFont.className} ${LocalFont.variable} ${Paperlogy.variable}`}
+            >
                 {trackingSiteId && trackingApiBaseUrl && (
                     <TrackingSdk siteId={trackingSiteId} apiBaseUrl={trackingApiBaseUrl} environment={environment} />
                 )}
