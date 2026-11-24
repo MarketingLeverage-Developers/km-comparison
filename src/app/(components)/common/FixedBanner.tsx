@@ -16,9 +16,12 @@ import { FaPen } from 'react-icons/fa6';
 import { MdCall } from 'react-icons/md';
 import { useForm } from '../formProvider';
 import { DARK, PHONE_TEL, ls } from '@/configs/site';
-import styles from './FixedBanner.module.scss';
+import Blink from '@/headful/Blink/Blink';
 
 const BAR_COLOR = '#E6AB0A';
+const callPhone = () => {
+    window.location.href = `tel:${PHONE_TEL}`;
+};
 const inputStyle: React.CSSProperties = { border: 'none', borderRadius: 5, color: '#171717' };
 
 const FixedBanner = () => {
@@ -39,13 +42,19 @@ const FixedBanner = () => {
                 <Box backgroundColor={BAR_COLOR}>
                     <MaxWidth maxWidth={1320} style={{ padding: '0 20px' }}>
                         <Flex height={'84px'} align="center" justify="space-between" width="100%">
-                            <Text size={22} color={DARK} style={{ lineHeight: 1.3, ...ls(-0.02), whiteSpace: 'nowrap' }}>
+                            <Text
+                                size={22}
+                                color={DARK}
+                                style={{ lineHeight: 1.3, ...ls(-0.02), whiteSpace: 'nowrap' }}
+                            >
                                 내 차 빠르게
                                 <br />
-                                <b style={{ fontWeight: 700 }}>무료견적 받기</b>
+                                <Text size={22} weight={700} color={DARK} style={{ lineHeight: 'inherit' }}>
+                                    무료견적 받기
+                                </Text>
                             </Text>
                             <Flex align="center" gap={15}>
-                                <Box width={250}>
+                                <Box width={220}>
                                     <CustomInputA
                                         full
                                         height={45}
@@ -100,7 +109,7 @@ const FixedBanner = () => {
                                         onChange={(e) => updateForm('lastPhone', normalizePhone(e.target.value))}
                                     />
                                 </Flex>
-                                <Flex align="center" gap={15} className={styles.privacy}>
+                                <Flex align="center" gap={15} style={{ whiteSpace: 'nowrap' }}>
                                     <PrivacyCheckBox
                                         color={DARK}
                                         fixed
@@ -118,7 +127,12 @@ const FixedBanner = () => {
                                 disabled={isSubmitting}
                                 style={{ borderRadius: 6, padding: 'var(--space-10) var(--space-35)', border: 'none' }}
                             >
-                                <Text size={20} weight={700} color={BAR_COLOR} style={{ lineHeight: 1.6, ...ls(-0.02) }}>
+                                <Text
+                                    size={20}
+                                    weight={700}
+                                    color={BAR_COLOR}
+                                    style={{ lineHeight: 1.6, ...ls(-0.02) }}
+                                >
                                     무료견적 받기
                                 </Text>
                             </ButtonB>
@@ -128,7 +142,13 @@ const FixedBanner = () => {
             </Item>
             <Item mobile>
                 <Flex height={'60px'} width="100%">
-                    <Box width="50%" height="100%" backgroundColor={DARK} onClick={goForm} style={{ cursor: 'pointer' }}>
+                    <Box
+                        width="50%"
+                        height="100%"
+                        backgroundColor={DARK}
+                        onClick={goForm}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <Flex height="100%" justify="center" align="center" gap={8} s>
                             <Text size={18} s color="#FFC800">
                                 <FaPen />
@@ -138,9 +158,15 @@ const FixedBanner = () => {
                             </Text>
                         </Flex>
                     </Box>
-                    <a href={`tel:${PHONE_TEL}`} style={{ width: '50%', height: '100%', textDecoration: 'none' }}>
-                        <Box width="100%" height="100%" backgroundColor={BAR_COLOR}>
-                            <Flex height="100%" justify="center" align="center" gap={8} s className={styles.blink}>
+                    <Box
+                        width="50%"
+                        height="100%"
+                        backgroundColor={BAR_COLOR}
+                        onClick={callPhone}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <Blink min={0.4} style={{ height: '100%' }}>
+                            <Flex height="100%" justify="center" align="center" gap={8} s>
                                 <Text size={20} s color={DARK}>
                                     <MdCall />
                                 </Text>
@@ -148,8 +174,8 @@ const FixedBanner = () => {
                                     전화상담
                                 </Text>
                             </Flex>
-                        </Box>
-                    </a>
+                        </Blink>
+                    </Box>
                 </Flex>
             </Item>
         </Fixed>

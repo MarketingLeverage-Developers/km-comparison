@@ -41,7 +41,7 @@ const PrivacyCheckBox = ({ checked, onChange, size, color, boxSize, style, fixed
                 ) : (
                     <Item desktop>
                         <Text size={size} color={color} weight={400}>
-                            개인정보 수집 / 이용 동의
+                            개인정보 수집 및 이용 안내 동의(필수)
                         </Text>
                     </Item>
                 )}

@@ -1,0 +1,11 @@
+{
+    "MainCfId":  "E1Y8E4XC5AA6K1",
+    "PunycodeDomain":  "kmcarauto.kr",
+    "IncludeWww":  true,
+    "CertArn":  "arn:aws:acm:us-east-1:202533507544:certificate/1c735511-9edd-4185-b8c1-3ea4b4196d7a",
+    "RawDomainName":  "kmcarauto.kr",
+    "S3Bucket":  "ml-ad-pages",
+    "ConnectionGroupId":  "cg_3A3LWbESFADJuXvxREFRp8TC5Ao",
+    "TenantName":  "km-comparison",
+    "TenantId":  "dt_3MXsUOzF1rE5FTyoJ7fA7FGYelL"
+}

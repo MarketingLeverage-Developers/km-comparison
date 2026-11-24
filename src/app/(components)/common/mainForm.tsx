@@ -12,8 +12,9 @@ import BlinkingDot from '@/headful/Blinkingdot/blinkingdot';
 import { useSafeInput } from '@/libs/utils/security';
 import { useForm } from '../formProvider';
 import { DARK, PRIMARY, ls, paperlogy } from '@/configs/site';
-import womanImg from '@/assets/images/form-woman.webp';
-import styles from './mainForm.module.scss';
+import womanImg from '@/assets/images/form-woman.png';
+import Image from '@/ui-kit/src/components/contents/Image/Image';
+import Absolute from '@/ui-kit/src/components/layouts/Absolute/Absolute';
 
 const inputStyle: React.CSSProperties = { backgroundColor: '#F5F5F3', border: 'none', color: DARK };
 
@@ -21,12 +22,15 @@ const Label = ({ children, mobile }: { children: React.ReactNode; mobile?: boole
     <Box width={mobile ? '72px' : 95} style={{ flexShrink: 0 }}>
         <Text size={mobile ? 14 : 15} s={mobile} weight={600} color={DARK} style={ls()}>
             {children}
-            <span style={{ color: '#F0A500' }}>*</span>
+            <Text size={mobile ? 14 : 15} s={mobile} weight={600} color="#F0A500" style={{ lineHeight: 'inherit' }}>
+                *
+            </Text>
         </Text>
     </Box>
 );
 
-/** 메인 상담 폼 (히어로 우측 · 빠른문의 모달 공용) */
+let counts: { today: number; now: number } | null = null;
+
 const MainForm = () => {
     const { form, updateForm, handleButtonClick, isSubmitting } = useForm();
     const { normalizePhone } = useSafeInput();
@@ -36,13 +40,14 @@ const MainForm = () => {
 
     // 실시간 신청 현황 숫자 자동 변동
     useEffect(() => {
-        setTodayCount(25 + Math.floor(Math.random() * 6));
-        setNowCount(5 + Math.floor(Math.random() * 5));
-        const timer = setInterval(() => {
-            setTodayCount((v) => (Math.random() < 0.4 ? v + 1 : v));
-            setNowCount(() => 5 + Math.floor(Math.random() * 5));
-        }, 5000);
-        return () => clearInterval(timer);
+        if (!counts) {
+            counts = {
+                today: 25 + Math.floor(Math.random() * 6),
+                now: 5 + Math.floor(Math.random() * 5),
+            };
+        }
+        setTodayCount(counts.today);
+        setNowCount(counts.now);
     }, []);
 
     const renderFields = (mobile: boolean) => {
@@ -78,7 +83,7 @@ const MainForm = () => {
                             value={form.firstPhone}
                             onChange={(e) => updateForm('firstPhone', normalizePhone(e.target.value))}
                         />
-                        <Text size={15} color="#767676">
+                        <Text size={15} s={mobile} color="#767676">
                             -
                         </Text>
                         <CustomInputA
@@ -96,7 +101,7 @@ const MainForm = () => {
                                 if (v.length === 4) lastPhoneRef.current?.focus();
                             }}
                         />
-                        <Text size={15} color="#767676">
+                        <Text size={15} s={mobile} color="#767676">
                             -
                         </Text>
                         <CustomInputA
@@ -128,11 +133,31 @@ const MainForm = () => {
             >
                 <BlinkingDot />
                 <Text size={mobile ? 14 : 16} s={mobile} weight={600} color="#fff" style={ls()}>
-                    오늘 <span style={{ color: PRIMARY }}>{todayCount}명</span> 신청
+                    오늘{' '}
+                    <Text
+                        size={mobile ? 14 : 16}
+                        s={mobile}
+                        weight={600}
+                        color={PRIMARY}
+                        style={{ lineHeight: 'inherit' }}
+                    >
+                        {todayCount}명
+                    </Text>{' '}
+                    신청
                 </Text>
-                <span className={styles.divider} />
+                <Box width="1px" height="12px" backgroundColor="#FFFFFF33" style={{ flexShrink: 0 }} />
                 <Text size={mobile ? 14 : 16} s={mobile} weight={600} color="#fff" style={ls()}>
-                    현재 <span style={{ color: PRIMARY }}>{nowCount}명</span> 상담중
+                    현재{' '}
+                    <Text
+                        size={mobile ? 14 : 16}
+                        s={mobile}
+                        weight={600}
+                        color={PRIMARY}
+                        style={{ lineHeight: 'inherit' }}
+                    >
+                        {nowCount}명
+                    </Text>{' '}
+                    상담중
                 </Text>
             </Flex>
         </Box>
@@ -171,17 +196,16 @@ const MainForm = () => {
                 <Box
                     backgroundColor="#fff"
                     radius={20}
-                    width={'392px'}
                     boxShadow="0px 24px 48px 0px rgba(0,0,0,0.28)"
                     style={{ overflow: 'hidden' }}
                 >
-                    <Box backgroundColor={PRIMARY} height={'112px'} style={{ position: 'relative', overflow: 'hidden' }}>
+                    <Box backgroundColor={PRIMARY} style={{ position: 'relative', overflow: 'hidden' }}>
                         <Flex
                             direction="column"
                             justify="center"
                             gap={10}
                             height="100%"
-                            padding={{ x: 30 }}
+                            padding={30}
                             style={{ position: 'relative', zIndex: 1 }}
                         >
                             <Text size={26} weight={700} color={DARK} style={{ ...paperlogy, ...ls(), lineHeight: 1 }}>
@@ -191,13 +215,20 @@ const MainForm = () => {
                                 size={18}
                                 weight={600}
                                 color="#FF0606"
-                                className={styles.blink}
                                 style={{ ...paperlogy, ...ls(), lineHeight: 1 }}
                             >
                                 전국 딜러 경쟁 입찰 시스템
                             </Text>
                         </Flex>
-                        <img src={womanImg.src} alt="" className={styles.woman} />
+                        <Absolute right={21} bottom={0}>
+                            <Image
+                                image={womanImg.src}
+                                alt="폼이미지"
+                                width={150}
+                                height={100}
+                                style={{ display: 'block' }}
+                            />
+                        </Absolute>
                     </Box>
                     <Flex direction="column" gap={20} padding={25}>
                         {renderStatus(false)}
@@ -208,10 +239,23 @@ const MainForm = () => {
                 </Box>
             </Item>
             <Item mobile>
-                <Box backgroundColor="#fff" radius={16} width="100%" style={{ overflow: 'hidden' }}>
+                <Box backgroundColor="#fff" radius={16} width="320px" style={{ overflow: 'hidden' }}>
                     <Box backgroundColor={PRIMARY} height="88px" style={{ position: 'relative', overflow: 'hidden' }}>
-                        <Flex direction="column" justify="center" gap={8} height="100%" s style={{ padding: '0 20px', position: 'relative', zIndex: 1 }}>
-                            <Text size={20} s weight={700} color={DARK} style={{ ...paperlogy, ...ls(), lineHeight: 1 }}>
+                        <Flex
+                            direction="column"
+                            justify="center"
+                            gap={8}
+                            height="100%"
+                            s
+                            style={{ padding: '0 20px', position: 'relative', zIndex: 1 }}
+                        >
+                            <Text
+                                size={20}
+                                s
+                                weight={700}
+                                color={DARK}
+                                style={{ ...paperlogy, ...ls(), lineHeight: 1 }}
+                            >
                                 내 차 팔기 무료 상담
                             </Text>
                             <Text
@@ -219,13 +263,14 @@ const MainForm = () => {
                                 s
                                 weight={600}
                                 color="#FF0606"
-                                className={styles.blink}
                                 style={{ ...paperlogy, ...ls(), lineHeight: 1 }}
                             >
                                 전국 딜러 경쟁 입찰 시스템
                             </Text>
                         </Flex>
-                        <img src={womanImg.src} alt="" className={styles.womanMo} />
+                        <Absolute right={10} bottom={0}>
+                            <Image image={womanImg.src} alt="" width={'130px'} style={{ display: 'block' }} />
+                        </Absolute>
                     </Box>
                     <Flex direction="column" gap={16} s style={{ padding: 18 }}>
                         {renderStatus(true)}
