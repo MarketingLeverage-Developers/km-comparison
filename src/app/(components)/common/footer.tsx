@@ -3,6 +3,8 @@ import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
 import Text from '@/ui-kit/src/components/contents/Text/Text';
 import Item from '@/ui-kit/src/components/layouts/Item/Item';
 import { PHONE, SITE_NAME } from '@/configs/site';
+import footerPc from '@/assets/images/footerPc.png';
+import footerMo from '@/assets/images/footerMo.png';
 
 // TODO: 사업자 정보 확정되면 채우기 (시안은 '-' 플레이스홀더)
 const COMPANY_INFO = [
@@ -28,7 +30,7 @@ const T = ({
 
 const Footer = () => {
     return (
-        <FooterAp imgPc="" imgMo="" bgColor="#272727" maxWidth={1320} bottomPaddingPc={85} bottomPaddingMo={120}>
+        <FooterAp imgPc={footerPc.src} imgMo={footerMo.src} bgColor="#272727" maxWidth={1320} bottomPaddingPc={85} bottomPaddingMo={120}>
             <Item desktop>
                 <Flex direction="column" gap={35} style={{ padding: 'var(--space-20) 0' }}>
                     <Flex direction="column" gap={15}>
