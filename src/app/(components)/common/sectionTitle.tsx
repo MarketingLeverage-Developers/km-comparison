@@ -30,7 +30,14 @@ const SectionTitle = ({ plain, accent, highlightFirst, size = 40 }: Props) => {
             style={{ ...paperlogy, ...ls(), lineHeight: 1.3, display: 'block' }}
         >
             {parts.map((p, i) => (
-                <Text key={i} size={mobile ? 24 : size} s={mobile} weight={800} color={p.c} style={{ lineHeight: 'inherit' }}>
+                <Text
+                    key={i}
+                    size={mobile ? 24 : size}
+                    s={mobile}
+                    weight={800}
+                    color={p.c}
+                    style={{ lineHeight: 'inherit' }}
+                >
                     {i > 0 ? ' ' : ''}
                     {p.t}
                 </Text>

@@ -23,7 +23,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 <>
                     <Footer />
                     <Floating />
-                    <FormProvider inquireLocation="하단-고정">
+                    <FormProvider inquireLocation="하단-고정" conversionPage={pathname === '/' ? '메인' : '서브'}>
                         <FixedBanner />
                     </FormProvider>
                 </>

@@ -34,7 +34,8 @@ let counts: { today: number; now: number } | null = null;
 const MainForm = () => {
     const { form, updateForm, handleButtonClick, isSubmitting } = useForm();
     const { normalizePhone } = useSafeInput();
-    const lastPhoneRef = useRef<HTMLInputElement>(null);
+    const lastPhoneRefPc = useRef<HTMLInputElement>(null);
+    const lastPhoneRefMo = useRef<HTMLInputElement>(null);
     const [todayCount, setTodayCount] = useState(25);
     const [nowCount, setNowCount] = useState(7);
 
@@ -98,14 +99,14 @@ const MainForm = () => {
                             onChange={(e) => {
                                 const v = normalizePhone(e.target.value);
                                 updateForm('middlePhone', v);
-                                if (v.length === 4) lastPhoneRef.current?.focus();
+                                if (v.length === 4) (mobile ? lastPhoneRefMo : lastPhoneRefPc).current?.focus();
                             }}
                         />
                         <Text size={15} s={mobile} color="#767676">
                             -
                         </Text>
                         <CustomInputA
-                            ref={lastPhoneRef}
+                            ref={mobile ? lastPhoneRefMo : lastPhoneRefPc}
                             full
                             s={mobile}
                             type="tel"

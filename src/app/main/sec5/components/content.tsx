@@ -3,7 +3,7 @@ import Box from '@/ui-kit/src/components/layouts/Box/Box';
 import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
 import Grid from '@/ui-kit/src/components/layouts/Grid/Grid';
 import ReviewCard from './reviewCard';
-import { useReviews } from './useReviews';
+import { REVIEWS as reviews } from './reviews';
 
 const scrollerStyle: React.CSSProperties = {
     overflowX: 'auto',
@@ -14,7 +14,6 @@ const scrollerStyle: React.CSSProperties = {
 };
 
 const Content = ({ mobile = false }: { mobile?: boolean }) => {
-    const reviews = useReviews();
     if (!mobile) {
         return (
             <Grid gridTemplateColumns="repeat(3, 1fr)" gap={20} width="100%">

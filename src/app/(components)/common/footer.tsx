@@ -30,7 +30,14 @@ const T = ({
 
 const Footer = () => {
     return (
-        <FooterAp imgPc={footerPc.src} imgMo={footerMo.src} bgColor="#272727" maxWidth={1320} bottomPaddingPc={85} bottomPaddingMo={120}>
+        <FooterAp
+            imgPc={footerPc.src}
+            imgMo={footerMo.src}
+            bgColor="#272727"
+            maxWidth={1320}
+            bottomPaddingPc={85}
+            bottomPaddingMo={120}
+        >
             <Item desktop>
                 <Flex direction="column" gap={35} style={{ padding: 'var(--space-20) 0' }}>
                     <Flex direction="column" gap={15}>

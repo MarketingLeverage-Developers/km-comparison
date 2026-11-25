@@ -3,22 +3,8 @@ import Text from '@/ui-kit/src/components/contents/Text/Text';
 import Box from '@/ui-kit/src/components/layouts/Box/Box';
 import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
 import SwiperD from '@/headful/barSwiper/D/swiperD';
-import { DARK, PRIMARY, ls } from '@/configs/site';
+import { CONSULT_CARS as CARS, DARK, PRIMARY, ls } from '@/configs/site';
 
-const CARS = [
-    '토레스 2022년식',
-    '아우디 A6 2018년식',
-    '그랜저 IG 6 2016년식',
-    'Kia K8 2021년식',
-    '레이 2019년식',
-    '쏘렌토 2020년식',
-    '팰리세이드 2021년식',
-    'BMW 520d 2019년식',
-    '아반떼 CN7 2022년식',
-    '카니발 2020년식',
-    '제네시스 G80 2021년식',
-    '투싼 2019년식',
-];
 
 const LEFT = CARS.slice(0, 6);
 const RIGHT = CARS.slice(6);

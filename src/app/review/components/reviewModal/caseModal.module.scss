@@ -1,0 +1,125 @@
+.ModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.ModalContainer {
+    width: var(--box-500);
+    height: var(--box-650);
+    background-color: #fff;
+    border-radius: 20px;
+    @media (max-width: 768px) {
+        width: 320px;
+    }
+}
+
+.ModalHeaderWrapper {
+    background-color: #ffc800;
+    color: #1a1a1a;
+    font-weight: 700;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 0 17.5px;
+    box-sizing: border-box;
+    img {
+        width: 19px;
+        height: 19px;
+        cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+        img {
+            width: 15px;
+            height: 15px;
+        }
+    }
+}
+
+.ModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-height: 650px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    box-sizing: border-box;
+    scrollbar-gutter: stable;
+    scrollbar-gutter: stable both-edges;
+    scrollbar-width: thin;
+    scrollbar-color: #a6a6a6 transparent;
+    > img {
+        object-fit: cover;
+        width: 75%;
+    }
+    @media (max-width: 768px) {
+        max-height: 500px;
+    }
+}
+
+.TextWrapper {
+    color: #424242;
+    font-size: 16px;
+    line-height: 23px;
+    border-top: 1px solid #e3e3e3;
+    padding: 26px 31px;
+
+    strong {
+        font-weight: 600;
+    }
+    @media (max-width: 768px) {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 14px;
+    }
+}
+
+.SwiperWrapper {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.ModalImageSwiperContainer {
+    width: 100%;
+}
+
+.Slide {
+    width: 100%;
+    text-align: center;
+    img {
+        width: 60%;
+        object-fit: cover;
+    }
+}
+
+.PrevButton,
+.NextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.PrevButton {
+    left: 10px;
+}
+
+.NextButton {
+    right: 10px;
+}

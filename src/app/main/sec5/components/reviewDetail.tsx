@@ -1,34 +1,15 @@
 'use client';
-import { useEffect, useState } from 'react';
 import Image from '@/ui-kit/src/components/contents/Image/Image';
 import Text from '@/ui-kit/src/components/contents/Text/Text';
 import Box from '@/ui-kit/src/components/layouts/Box/Box';
 import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
-import { getHomepageContentDetail } from '@/libs/mleverageClient';
 import { DARK, PRIMARY, ls } from '@/configs/site';
 import { useModal } from '@/headless/Modal/Modal';
 import { IoClose } from 'react-icons/io5';
-import { Review, toText } from './useReviews';
+import { Review } from './reviews';
 
 const ReviewDetail = ({ r }: { r: Review }) => {
     const { closeModal } = useModal();
-    const [body, setBody] = useState(r.body);
-
-    // 목록 설명이 잘려 있을 수 있어 상세를 한 번 더 조회 (실패하면 목록 값 유지)
-    useEffect(() => {
-        if (!r.uuid) return;
-        let alive = true;
-        getHomepageContentDetail({ type: 'REVIEW', contentUuid: r.uuid })
-            .then((res) => {
-                const content = res?.body?.content as unknown as Record<string, unknown> | undefined;
-                const text = toText(content?.description);
-                if (alive && text) setBody(text);
-            })
-            .catch(() => {});
-        return () => {
-            alive = false;
-        };
-    }, [r.uuid]);
 
     return (
         <Flex direction="column" width="100%" height="100%">
@@ -61,7 +42,7 @@ const ReviewDetail = ({ r }: { r: Review }) => {
                         wbreak="keep-all"
                         style={{ ...ls(-0.02), lineHeight: 1.6, whiteSpace: 'pre-line', display: 'block' }}
                     >
-                        {body}
+                        {r.body}
                     </Text>
                 </Box>
             </Box>

@@ -1,6 +1,5 @@
 'use client';
 import { useRef } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
 import ButtonB from '@/ui-kit/src/components/contents/Button/B/ButtonB';
 import Text from '@/ui-kit/src/components/contents/Text/Text';
 import Box from '@/ui-kit/src/components/layouts/Box/Box';
@@ -12,29 +11,22 @@ import CustomInputA from '@/ui-kit/src/components/templates/customInput/A/InputA
 import PrivacyCheckBox from '@/headful/PrivacyCheckBox/PrivacyCheckBox';
 import PrivacyAgreement from '@/headful/PrivacyAgreement/PrivacyAgreement';
 import { useSafeInput } from '@/libs/utils/security';
-import { FaPen } from 'react-icons/fa6';
-import { MdCall } from 'react-icons/md';
 import { useForm } from '../formProvider';
-import { DARK, PHONE_TEL, ls } from '@/configs/site';
-import Blink from '@/headful/Blink/Blink';
+import { DARK, ls } from '@/configs/site';
 
 const BAR_COLOR = '#E6AB0A';
-const callPhone = () => {
-    window.location.href = `tel:${PHONE_TEL}`;
-};
 const inputStyle: React.CSSProperties = { border: 'none', borderRadius: 5, color: '#171717' };
 
 const FixedBanner = () => {
     const { form, updateForm, handleButtonClick, isSubmitting } = useForm();
     const { normalizePhone } = useSafeInput();
     const lastPhoneRef = useRef<HTMLInputElement>(null);
-    const router = useRouter();
-    const pathname = usePathname();
-
-    const goForm = () => {
-        if (pathname !== '/') router.push('/');
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    const isActive =
+        form.carModel.trim().length >= 2 &&
+        form.firstPhone.length >= 3 &&
+        form.middlePhone.length >= 3 &&
+        form.lastPhone.length === 4 &&
+        form.privacyValue;
 
     return (
         <Fixed left={0} bottom={0} right={0}>
@@ -122,61 +114,28 @@ const FixedBanner = () => {
                                 </Flex>
                             </Flex>
                             <ButtonB
-                                bgColor={DARK}
+                                bgColor={isActive ? DARK : '#FFFFFF'}
                                 onClick={handleButtonClick}
                                 disabled={isSubmitting}
-                                style={{ borderRadius: 6, padding: 'var(--space-10) var(--space-35)', border: 'none' }}
+                                style={{
+                                    borderRadius: 6,
+                                    padding: 'var(--space-10) var(--space-35)',
+                                    border: 'none',
+                                    transition: 'background-color 0.2s',
+                                }}
                             >
                                 <Text
                                     size={20}
                                     weight={700}
-                                    color={BAR_COLOR}
+                                    color={isActive ? BAR_COLOR : DARK}
                                     style={{ lineHeight: 1.6, ...ls(-0.02) }}
                                 >
-                                    무료견적 받기
+                                    {isSubmitting ? '전송 중...' : '무료견적 받기'}
                                 </Text>
                             </ButtonB>
                         </Flex>
                     </MaxWidth>
                 </Box>
-            </Item>
-            <Item mobile>
-                <Flex height={'60px'} width="100%">
-                    <Box
-                        width="50%"
-                        height="100%"
-                        backgroundColor={DARK}
-                        onClick={goForm}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <Flex height="100%" justify="center" align="center" gap={8} s>
-                            <Text size={18} s color="#FFC800">
-                                <FaPen />
-                            </Text>
-                            <Text size={18} s weight={700} color="#FFC800">
-                                빠른 상담
-                            </Text>
-                        </Flex>
-                    </Box>
-                    <Box
-                        width="50%"
-                        height="100%"
-                        backgroundColor={BAR_COLOR}
-                        onClick={callPhone}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <Blink min={0.4} style={{ height: '100%' }}>
-                            <Flex height="100%" justify="center" align="center" gap={8} s>
-                                <Text size={20} s color={DARK}>
-                                    <MdCall />
-                                </Text>
-                                <Text size={18} s weight={700} color={DARK}>
-                                    전화상담
-                                </Text>
-                            </Flex>
-                        </Blink>
-                    </Box>
-                </Flex>
             </Item>
         </Fixed>
     );

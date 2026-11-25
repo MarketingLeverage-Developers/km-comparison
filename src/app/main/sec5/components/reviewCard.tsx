@@ -9,7 +9,7 @@ import { DARK, PRIMARY, ls } from '@/configs/site';
 import badge from '@/assets/images/review-badge.png';
 import chevron from '@/assets/images/chevron-right.svg';
 import ReviewDetail, { photoStyle } from './reviewDetail';
-import { Review } from './useReviews';
+import { Review } from './reviews';
 
 const ReviewCard = ({ r, mobile }: { r: Review; mobile: boolean }) => (
     <ModalA>

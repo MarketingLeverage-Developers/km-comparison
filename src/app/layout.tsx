@@ -81,7 +81,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     const trackingSiteId = process.env.NEXT_PUBLIC_TRACKING_SITE_ID;
-    const trackingApiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/macs\/api\/?$/, '/maus/api');
+    const trackingApiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
     const environment = process.env.NEXT_PUBLIC_ENV === 'prod' ? 'production' : 'staging';
     const src = process.env.NEXT_PUBLIC_API_URL;
     return (

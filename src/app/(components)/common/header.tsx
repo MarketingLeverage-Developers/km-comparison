@@ -10,6 +10,17 @@ import { DARK, PHONE, PHONE_TEL, PRIMARY, SITE_NAME, ls, paperlogy } from '@/con
 import phoneIcon from '@/assets/images/hd-phone.svg';
 import logo from '@/assets/images/hd-logo.png';
 import search from '@/assets/images/hd-search.png';
+import HoverText from '@/headful/hoverText/hoverText';
+
+const NAV = [
+    { label: '내 차 팔기', path: '/sell' },
+    { label: '내 차 판매후기', path: '/review' },
+];
+
+const MOBILE_NAV = [
+    { label: '메인 홈', path: '/' },
+    ...NAV.map((n) => (n.path === '/review' ? { ...n, label: '고객 후기' } : n)),
+];
 
 export const scrollToId = (id: string) => {
     if (id === 'top') {
@@ -45,8 +56,27 @@ const Header = () => {
             <Item desktop>
                 <MaxWidth maxWidth={1260} style={{ padding: '0 20px' }}>
                     <Flex height={100} align="center" justify="space-between" width="100%">
-                        <Flex align="center" style={{ cursor: 'pointer' }} onClick={() => go('top')}>
-                            <Image image={logo.src} width={250} />
+                        <Flex align="center" gap={50}>
+                            <Flex align="center" style={{ cursor: 'pointer' }} onClick={() => go('top')}>
+                                <Image image={logo.src} width={250} />
+                            </Flex>
+                            <Flex align="center" gap={40}>
+                                {NAV.map((n, idx) => (
+                                    <Flex key={n.path} align="center" gap={40}>
+                                        {idx > 0 && <Box width="1px" height={20} backgroundColor="#CCCCCC" />}
+                                        <HoverText
+                                            color={pathname.startsWith(n.path) ? '#E6AB0A' : DARK}
+                                            size={22}
+                                            weight={600}
+                                            hoverColor="#E6AB0A"
+                                            style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
+                                            onClick={() => router.push(n.path)}
+                                        >
+                                            {n.label}
+                                        </HoverText>
+                                    </Flex>
+                                ))}
+                            </Flex>
                         </Flex>
 
                         <Flex direction="column" align="center" gap={8}>
@@ -68,7 +98,13 @@ const Header = () => {
             </Item>
             <Item mobile>
                 <Flex height={'60px'} align="center" justify="space-between" s style={{ padding: '0 20px' }}>
-                    <Image image={logo.src} alt="로고" height={'30px'} />
+                    <Image
+                        image={logo.src}
+                        alt="로고"
+                        height={'30px'}
+                        onClick={() => go('top')}
+                        style={{ cursor: 'pointer' }}
+                    />
                     <Flex
                         align="center"
                         gap={6}
@@ -81,6 +117,31 @@ const Header = () => {
                             {PHONE}
                         </Text>
                     </Flex>
+                </Flex>
+                <Flex height={'50px'} s align="center" style={{ backgroundColor: '#FFC800' }}>
+                    {MOBILE_NAV.map((n, idx) => (
+                        <Flex
+                            key={n.path}
+                            height="100%"
+                            align="center"
+                            justify="center"
+                            onClick={() => router.push(n.path)}
+                            style={{
+                                flex: 1,
+                                cursor: 'pointer',
+                                borderLeft: idx > 0 ? '1px solid rgba(26,26,26,0.2)' : 'none',
+                            }}
+                        >
+                            <Text
+                                color={DARK}
+                                s
+                                size={15}
+                                weight={(n.path === '/' ? pathname === '/' : pathname.startsWith(n.path)) ? 800 : 600}
+                            >
+                                {n.label}
+                            </Text>
+                        </Flex>
+                    ))}
                 </Flex>
             </Item>
         </Box>

@@ -10,7 +10,7 @@ export const useCountUpOnce = (target: number): number => {
 
         const animate = (now: number) => {
             const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+            const progress = Math.min(Math.max(elapsed / duration, 0), 1);
             const value = progress * target;
 
             // 소수점 없는 정수 또는 소수 값

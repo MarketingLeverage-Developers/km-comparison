@@ -5,12 +5,12 @@ import Box from '@/ui-kit/src/components/layouts/Box/Box';
 import Flex from '@/ui-kit/src/components/layouts/Flex/Flex';
 import Item from '@/ui-kit/src/components/layouts/Item/Item';
 import { useCountUpOnce } from '@/libs/utils/useCountUp';
-import { DARK, PRIMARY, ls, paperlogy } from '@/configs/site';
+import { COUNTS, DARK, PRIMARY, ls, paperlogy } from '@/configs/site';
 
 const COUNTERS = [
-    { label: '7 days', value: 542, color: DARK },
-    { label: 'total', value: 65610, color: DARK },
-    { label: 'success', value: 31840, color: PRIMARY },
+    { label: '7 days', value: COUNTS.week, color: DARK },
+    { label: 'total', value: COUNTS.total, color: DARK },
+    { label: 'success', value: COUNTS.success, color: PRIMARY },
 ];
 
 /** 화면에 처음 보일 때 true (한 번만) */

@@ -34,9 +34,15 @@ type FormProviderProps = {
     children: ReactNode;
     inquireLocation?: string;
     defaultCarModel?: string;
+    conversionPage?: string;
 };
 
-export const FormProvider = ({ children, inquireLocation = '메인-상단', defaultCarModel = '' }: FormProviderProps) => {
+export const FormProvider = ({
+    children,
+    inquireLocation = '메인-상단',
+    defaultCarModel = '',
+    conversionPage = '메인',
+}: FormProviderProps) => {
     const router = useRouter();
     const [privacyValue, setPrivacyValue] = useState(true);
     const isLocalPending = useRef(false);
@@ -81,7 +87,7 @@ export const FormProvider = ({ children, inquireLocation = '메인-상단', defa
 
     const { values, isSubmitting, handleSubmit, setFieldValue } = useInquiryForm({
         inquiryType: 'MESSAGE',
-        conversionPage: '메인',
+        conversionPage,
         conversionPosition,
         fields,
         transformPayload: (currentValues) => {
@@ -90,7 +96,9 @@ export const FormProvider = ({ children, inquireLocation = '메인-상단', defa
         },
         onSuccess: () => {
             const isProd = process.env.NEXT_PUBLIC_ENV === 'prod';
-            const trackingEnabled = Boolean(process.env.NEXT_PUBLIC_TRACKING_SITE_ID && process.env.NEXT_PUBLIC_API_URL);
+            const trackingEnabled = Boolean(
+                process.env.NEXT_PUBLIC_TRACKING_SITE_ID && process.env.NEXT_PUBLIC_API_URL
+            );
             const useCompletionPage = isProd || trackingEnabled;
             const token = generateToken();
             if (trackingEnabled) registerInquirySuccess(token);
